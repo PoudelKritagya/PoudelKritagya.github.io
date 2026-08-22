@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kritagya Poudel | Health Informatics Student</title>
 <meta name="description" content="Portfolio of Kritagya Poudel, Bachelor in Health Informatics student at Kathmandu University.">
+
+<!-- Favicon: KP monogram -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232f6f4f'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='28' font-weight='700' fill='%23eef1ea' text-anchor='middle'%3EKP%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph / social preview -->
+<meta property="og:title" content="Kritagya Poudel | Health Informatics Student">
+<meta property="og:description" content="Bachelor in Health Informatics (BHI) student at Kathmandu University. Data, digital health systems, and networked care.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kritagyapoudel.com.np">
+<meta property="og:image" content="https://kritagyapoudel.com.np/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kritagya Poudel | Health Informatics Student">
+<meta name="twitter:description" content="Bachelor in Health Informatics (BHI) student at Kathmandu University. Data, digital health systems, and networked care.">
+<meta name="twitter:image" content="https://kritagyapoudel.com.np/preview.png">
 <style>
   :root{
     --ink:#12201c;
@@ -192,6 +206,24 @@
   footer a{color:var(--signal);}
 
   ::selection{background:var(--signal-bright);color:#fff;}
+
+  /* Contact form */
+  .contact-form{max-width:480px;}
+  .form-row{margin-bottom:18px;display:flex;flex-direction:column;}
+  .form-row label{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;
+    letter-spacing:.08em;color:#57685f;margin-bottom:6px;
+  }
+  .form-row input, .form-row textarea{
+    font-family:var(--body);font-size:15px;
+    padding:10px 12px;border:1px solid var(--wire);border-radius:4px;
+    background:var(--paper-2);color:var(--ink);
+    resize:vertical;
+  }
+  .form-row input:focus, .form-row textarea:focus{
+    outline:none;border-color:var(--signal);
+  }
+  .contact-form .btn{border:none;cursor:pointer;font-family:var(--mono);}
 </style>
 </head>
 <body>
@@ -318,6 +350,26 @@
       <div class="skill-card"><div class="k">Riding</div><div class="v">Take part in TVS rider group events</div></div>
       <div class="skill-card"><div class="k">Music</div><div class="v">Sing sometimes to unwind</div></div>
     </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Get in touch</h2></div>
+    <p style="max-width:520px;margin-bottom:24px;">Have a project, opportunity, or just want to say hi? Send a message directly below.</p>
+    <form action="https://formspree.io/f/mqpzjjok" method="POST" class="contact-form">
+      <div class="form-row">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="_replyto" required>
+      </div>
+      <div class="form-row">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn primary">Send message</button>
+    </form>
   </section>
 
   <footer>
