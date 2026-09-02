@@ -1,3 +1,32 @@
+// Ambient background: drifting blobs + cursor glow
+document.addEventListener("DOMContentLoaded", function () {
+  var bg = document.querySelector(".pulse-bg");
+  if (bg) {
+    ["blob-1", "blob-2", "blob-3"].forEach(function (cls) {
+      var b = document.createElement("div");
+      b.className = "blob " + cls;
+      bg.appendChild(b);
+    });
+  }
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var isTouch = window.matchMedia("(max-width: 720px)").matches;
+  if (!reduceMotion && !isTouch) {
+    var glow = document.createElement("div");
+    glow.className = "cursor-glow";
+    document.body.appendChild(glow);
+    var raf = null;
+    document.addEventListener("mousemove", function (e) {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        glow.style.setProperty("--x", e.clientX + "px");
+        glow.style.setProperty("--y", e.clientY + "px");
+        raf = null;
+      });
+    });
+  }
+});
+
 // Scroll-reveal: fade/slide elements into view
 document.addEventListener("DOMContentLoaded", function () {
   var targets = document.querySelectorAll(".reveal, .reveal-stagger");

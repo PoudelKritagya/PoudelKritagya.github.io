@@ -23,12 +23,69 @@ a{color:var(--signal);}
 .wrap{max-width:960px;margin:0 auto;padding:0 28px;}
 
 .pulse-bg{
-  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;
+}
+.pulse-bg::before{
+  content:"";position:absolute;inset:0;
   background-image:linear-gradient(var(--wire) 1px, transparent 1px);
   background-size:100% 44px;
-  opacity:.35;
+  opacity:.3;
   -webkit-mask-image: linear-gradient(to bottom, black, transparent 85%);
   mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+.blob{
+  position:absolute;border-radius:50%;
+  filter:blur(70px);
+  opacity:.35;
+  will-change:transform;
+}
+.blob-1{
+  width:420px;height:420px;
+  background:radial-gradient(circle at 30% 30%, var(--signal-bright), transparent 70%);
+  top:-120px;left:-100px;
+  animation:drift1 26s ease-in-out infinite;
+}
+.blob-2{
+  width:360px;height:360px;
+  background:radial-gradient(circle at 60% 40%, var(--amber), transparent 70%);
+  bottom:-140px;right:-80px;
+  animation:drift2 32s ease-in-out infinite;
+}
+.blob-3{
+  width:300px;height:300px;
+  background:radial-gradient(circle at 50% 50%, var(--signal), transparent 70%);
+  top:35%;left:55%;
+  animation:drift3 22s ease-in-out infinite;
+  opacity:.22;
+}
+@keyframes drift1{
+  0%,100%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(60px,40px) scale(1.08);}
+  66%{transform:translate(-30px,70px) scale(.95);}
+}
+@keyframes drift2{
+  0%,100%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(-70px,-50px) scale(1.1);}
+}
+@keyframes drift3{
+  0%,100%{transform:translate(0,0) scale(1);}
+  40%{transform:translate(-50px,30px) scale(1.15);}
+  70%{transform:translate(40px,-40px) scale(.9);}
+}
+.cursor-glow{
+  position:fixed;z-index:-1;pointer-events:none;
+  width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle, rgba(79,174,122,.14), transparent 70%);
+  transform:translate(-50%,-50%);
+  left:var(--x,50vw);top:var(--y,50vh);
+  transition:opacity .3s ease;
+}
+@media (prefers-reduced-motion: reduce){
+  .blob{animation:none;}
+  .cursor-glow{display:none;}
+}
+@media (max-width:720px){
+  .cursor-glow{display:none;}
 }
 
 /* Top navigation */
@@ -227,6 +284,34 @@ nav.topnav .links a.active::after{transform:scaleX(1);}
 .btn{transition:background .15s ease, color .15s ease, transform .12s ease, border-color .15s ease;}
 .btn:active{transform:scale(.97);}
 
+/* Photo gallery */
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+  gap:14px;
+  margin:18px 0 6px;
+}
+.photo-grid figure{margin:0;background:var(--paper-2);border:1px solid var(--wire);border-radius:8px;overflow:hidden;}
+.photo-grid img{
+  width:100%;height:220px;object-fit:cover;display:block;
+  transition:transform .35s ease;
+}
+.photo-grid figure:hover img{transform:scale(1.05);}
+.photo-grid figcaption{
+  font-family:var(--mono);font-size:11.5px;color:#57685f;
+  padding:8px 10px;text-transform:uppercase;letter-spacing:.04em;
+}
+
+.tl-photos{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;
+}
+.tl-photos img{
+  width:150px;height:110px;object-fit:cover;border-radius:6px;
+  border:1px solid var(--wire);
+  transition:transform .25s ease;
+}
+.tl-photos img:hover{transform:scale(1.05);}
+
 /* Profile photo */
 .profile-photo{
   width:132px;height:132px;border-radius:50%;
@@ -271,3 +356,97 @@ nav.topnav .links a.active::after{transform:scaleX(1);}
 /* simple page intro (used on sub-pages without full hero) */
 .page-intro{padding:48px 0 32px;border-bottom:1px solid var(--wire);}
 .page-intro h1{font-size:clamp(30px,4.5vw,42px);}
+
+/* Resume download row */
+.resume-row{
+  margin-top:22px;
+  border:1px solid var(--wire);
+  border-radius:10px;
+  background:var(--paper-2);
+  padding:18px 20px;
+}
+.resume-label{
+  display:block;
+  font-family:var(--mono);
+  font-size:11.5px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:#57685f;
+  margin-bottom:12px;
+}
+.resume-options{display:flex;gap:14px;flex-wrap:wrap;}
+.resume-btn{
+  display:flex;flex-direction:column;gap:2px;
+  padding:12px 18px;
+  border-radius:8px;
+  min-width:200px;
+}
+.resume-btn .rb-title{font-family:var(--display);font-size:15px;font-weight:600;}
+.resume-btn .rb-sub{font-family:var(--mono);font-size:11px;opacity:.75;}
+.resume-btn:hover .rb-sub{opacity:.9;}
+@media (max-width:520px){
+  .resume-options{flex-direction:column;}
+  .resume-btn{min-width:0;}
+}
+
+/* Gradient accent on main heading */
+.grad-text{
+  background:linear-gradient(90deg,var(--signal),var(--signal-bright) 45%,var(--amber));
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:gradflow 6s ease-in-out infinite;
+}
+@keyframes gradflow{
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+
+/* Eyebrow pulsing dot */
+.eyebrow{display:flex;align-items:center;gap:8px;}
+.eyebrow::before{
+  content:"";width:7px;height:7px;border-radius:50%;
+  background:var(--signal-bright);
+  box-shadow:0 0 0 0 rgba(79,174,122,.6);
+  animation:pulseDot 2s ease-out infinite;
+  flex-shrink:0;
+}
+@keyframes pulseDot{
+  0%{box-shadow:0 0 0 0 rgba(79,174,122,.5);}
+  70%{box-shadow:0 0 0 8px rgba(79,174,122,0);}
+  100%{box-shadow:0 0 0 0 rgba(79,174,122,0);}
+}
+
+/* Timeline dot pulse on hover */
+.tl-item::before{transition:box-shadow .25s ease, transform .25s ease;}
+.tl-item:hover::before{
+  transform:scale(1.15);
+  box-shadow:0 0 0 5px rgba(79,174,122,.18);
+}
+
+/* Button shine sweep */
+.btn{position:relative;overflow:hidden;}
+.btn::after{
+  content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);
+  transform:skewX(-20deg);
+  transition:left .5s ease;
+}
+.btn:hover::after{left:120%;}
+
+/* Nav brand micro animation */
+nav.topnav .brand{transition:letter-spacing .25s ease, color .2s ease;}
+nav.topnav .brand:hover{letter-spacing:.02em;color:var(--signal);}
+
+/* Fade-up entrance for header on load */
+@keyframes fadeUpIn{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+header.page-head, .page-intro{animation:fadeUpIn .7s ease both;}
+header.page-head .profile-photo{animation:fadeUpIn .8s ease .1s both;}
+
+@media (prefers-reduced-motion: reduce){
+  .grad-text{animation:none;}
+  .eyebrow::before{animation:none;}
+  header.page-head, .page-intro, header.page-head .profile-photo{animation:none;}
+}
