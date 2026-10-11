@@ -22,23 +22,23 @@
 
 <nav class="topnav">
   <div class="wrap">
-    <a class="brand" href="index.html">Kritagya Poudel</a>
+    <a class="brand" href="#top">Kritagya Poudel</a>
     <div class="links">
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About</a>
-      <a href="skills.html">Skills</a>
-      <a href="projects.html">Projects</a>
-      <a href="experience.html">Experience</a>
+      <a href="#top" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
       <a href="contact.html">Contact</a>
     </div>
   </div>
 </nav>
 
 <div class="wrap">
-  <header class="page-head">
+  <header class="page-head" id="top">
     <img src="profile.jpg" alt="Kritagya Poudel" class="profile-photo">
     <div class="eyebrow">Open to internships and research collaboration</div>
-    <h1><span class="grad-text">Kritagya Poudel</span></h1>
+    <h1>Kritagya Poudel</h1>
     <p class="tagline">Health Informatics student at Kathmandu University. Interested in how data and technology can make healthcare work better, especially in places that don't have easy access to it.</p>
 
     <div class="contact-links">
@@ -46,20 +46,7 @@
       <a class="btn" href="tel:+9779767989703">Call: 976-798-9703</a>
       <a class="btn" href="https://www.linkedin.com/in/kritagyapoudel" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn" href="https://www.facebook.com/kritu.poudel/" target="_blank" rel="noopener">Facebook</a>
-    </div>
-
-    <div class="resume-row">
-      <span class="resume-label">Download resume</span>
-      <div class="resume-options">
-        <a class="btn resume-btn" href="Kritagya_Poudel_Resume_Themed.pdf" target="_blank" rel="noopener" download>
-          <span class="rb-title">Themed version</span>
-          <span class="rb-sub">Matches this site's design</span>
-        </a>
-        <a class="btn resume-btn" href="Kritagya_Poudel_Resume_Professional.pdf" target="_blank" rel="noopener" download>
-          <span class="rb-title">Professional version</span>
-          <span class="rb-sub">Classic, ATS-friendly format</span>
-        </a>
-      </div>
+      <a class="btn" href="Kritagya_Poudel_Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
     </div>
 
     <div class="stat-row">
@@ -70,14 +57,138 @@
   </header>
 
   <main>
-    <section id="intro" class="reveal">
-      <div class="sec-head"><span class="sec-num">01</span><h2>Quick look</h2></div>
-      <p style="max-width:600px;">I'm a second-year Bachelor in Health Informatics (BHI) student at Kathmandu University, based in Dhulikhel (28 Kilo), though I'm originally from Kathmandu. Take a look through the pages above for my background, skills, projects, and how to reach me.</p>
-      <div class="contact-links" style="margin-top:24px;">
-        <a class="btn" href="about.html">About me</a>
-        <a class="btn" href="projects.html">See projects</a>
-        <a class="btn" href="contact.html">Get in touch</a>
+    <section id="about" class="reveal">
+      <div class="sec-head"><span class="sec-num">01</span><h2>About</h2></div>
+      <div class="about-grid">
+        <div>
+          <p>I'm a second-year Bachelor in Health Informatics (BHI) student at Kathmandu University, based in Dhulikhel (28 Kilo), though I'm originally from Kathmandu. I got into this field because I wanted to work somewhere between healthcare and technology, and health informatics let me do both without picking just one.</p>
+          <p>So far I've volunteered at an international conference on digital ethics, gone through hands-on training in delay-tolerant networking for remote and environmental monitoring, worked on a chronic disease management system with my department, and pitched an idea at a national innovation competition. I'm currently working on a research paper as well.</p>
+          <p>Outside of coursework, I'm usually either travelling somewhere, out riding with the TVS riders' group, or singing badly to unwind after a long day.</p>
+        </div>
+        <dl class="facts">
+          <dt>Program</dt>
+          <dd>BHI (Bachelor in Health Informatics), Kathmandu University</dd>
+          <dt>Status</dt>
+          <dd>2nd Year, 2nd Semester</dd>
+          <dt>Academic record</dt>
+          <dd>4.0 GPA across three semesters</dd>
+          <dt>Based in</dt>
+          <dd>Dhulikhel, 28 Kilo, Nepal (originally from Kathmandu)</dd>
+        </dl>
       </div>
+      <img src="profile.jpg" alt="Kritagya Poudel" class="profile-photo-lg" style="margin-top:32px;">
+    </section>
+
+    <section id="hobbies" class="reveal">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Outside of class</h2></div>
+      <div class="skill-grid reveal-stagger">
+        <div class="skill-card"><div class="k">Travel</div><div class="v">Always planning the next trip</div></div>
+        <div class="skill-card"><div class="k">Riding</div><div class="v">Take part in TVS rider group events</div></div>
+        <div class="skill-card"><div class="k">Music</div><div class="v">Sing sometimes to unwind</div></div>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Skills</h2></div>
+      <div class="skill-grid reveal-stagger">
+        <div class="skill-card"><div class="k">Language</div><div class="v">Python</div></div>
+        <div class="skill-card"><div class="k">Database</div><div class="v">MySQL</div></div>
+        <div class="skill-card"><div class="k">Framework</div><div class="v">Django &amp; other Python frameworks</div></div>
+        <div class="skill-card"><div class="k">Domain</div><div class="v">Health Informatics &amp; digital health systems</div></div>
+        <div class="skill-card"><div class="k">Networking</div><div class="v">Delay-Tolerant Networks, IoT sensors, Raspberry Pi</div></div>
+        <div class="skill-card"><div class="k">Practice</div><div class="v">Clinical &amp; public health data workflows</div></div>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal-stagger">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Projects</h2></div>
+      <div class="project-card">
+        <span class="tag">Digital Health</span><span class="tag">Team project</span>
+        <h3>Chronic Disease Management &amp; Tracking System</h3>
+        <p>A digital health system built with the department to help track and manage chronic disease patients, addressing real-world clinical data needs. Presented as part of a project defense in Teku, and covered in a departmental LinkedIn post.</p>
+        <div class="project-links">
+          <a href="https://www.linkedin.com/posts/kudohi_the-department-of-health-informatics-kathmandu-activity-7490781590642663424-5_3l" target="_blank" rel="noopener">Presentation post</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="tag">Networking</span><span class="tag">Environmental monitoring</span>
+        <h3>Delay-Tolerant Network Training Project</h3>
+        <p>Hands-on work with Raspberry Pi networking, ION DTN software, and IoT sensor systems during a 5-day ICTP workshop, including exposure to the Trishuli River sensor network for environmental monitoring.</p>
+        <div class="project-links">
+          <a href="https://ku.edu.np/news-app/ku-health-informatics-students-attend-ictp-workshop-on-delay-tolerant-networks?search_category=3&search_school=1&search_department=67&search_site_name=kudohi" target="_blank" rel="noopener">Read more</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="tag">In progress</span>
+        <h3>Research Paper</h3>
+        <p>Currently finalizing a research paper ahead of submission for publication. Details and link will be added once it's ready.</p>
+      </div>
+    </section>
+
+    <section id="experience" class="reveal">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Experience &amp; activities</h2></div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-date">Oct 3, 2026</div>
+          <div class="tl-title">NHIA CONNECT 2026</div>
+          <div class="tl-desc">Attended NHIA CONNECT 2026.
+            <br><a href="https://lnkd.in/p/gEyATZ23" target="_blank" rel="noopener">LinkedIn post 1</a>
+            &nbsp;&middot;&nbsp;
+            <a href="https://lnkd.in/p/gGcPJnD4" target="_blank" rel="noopener">LinkedIn post 2</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">May 25&ndash;27, 2026</div>
+          <div class="tl-title">Volunteer, 19th IFIP WG 9.4 Conference</div>
+          <div class="tl-desc">Volunteered at the 19th IFIP Working Group 9.4 Conference, "Reorienting the Digital Ethics Ontology for a Sustainable Future," hosted at Kathmandu University.
+            <br><a href="https://lnkd.in/p/g4Z8MsCM" target="_blank" rel="noopener">Conference post</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">May 11&ndash;15, 2026</div>
+          <div class="tl-title">ICTP Workshop on Delay-Tolerant Networks</div>
+          <div class="tl-desc">Selected with two peers for a 5-day UNESCO-affiliated ICTP workshop on DTN solutions for environmental monitoring. Worked hands-on with Raspberry Pi networking, ION DTN software, and IoT sensor systems, including the Trishuli River sensor network. We also got to learn from researchers and Nepali innovator Mahabir Pun.
+            <br><a href="https://ku.edu.np/news-app/ku-health-informatics-students-attend-ictp-workshop-on-delay-tolerant-networks?search_category=3&search_school=1&search_department=67&search_site_name=kudohi" target="_blank" rel="noopener">Read the KU writeup</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Jan 8, 2026</div>
+          <div class="tl-title">Telemedicine field visit, Rasuwa</div>
+          <div class="tl-desc">Went to Rasuwa with the Telemedicine Society of Nepal to see telemedicine services in practice as part of the first batch of the Bachelor's program.
+            <br><a href="https://www.linkedin.com/posts/kudohi_students-from-the-first-batch-of-the-bachelors-activity-7417100293370228736-YAhb" target="_blank" rel="noopener">See the post</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Dec 17, 2025</div>
+          <div class="tl-title">STEAM Material Competition, Ministry of Education, Science and Technology</div>
+          <div class="tl-desc">Presented at the STEAM Material Competition organized by Nepal's Ministry of Education, Science and Technology. Didn't secure the grant this time, but it was a good experience presenting an idea in front of a panel.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">July 16, 2025</div>
+          <div class="tl-title">Bishwo Nath and Nanda Kumari Adhikary Endowment Scholarship</div>
+          <div class="tl-desc">Awarded the scholarship by Kathmandu University's School of Engineering, selected based on academic performance and an interview.
+            <br><a href="https://ku.edu.np/news-app/scholarship-award-announcement---biswo-nath-adhikary-and-nanda-kumari-adhikary-endowment-fund?tags=SCHOLARSHIP&search_site_name=kuhome&show_on_home=0" target="_blank" rel="noopener">See the announcement</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">In progress</div>
+          <div class="tl-title">Research paper</div>
+          <div class="tl-desc">Currently working on a research paper. Details to be added once it's further along.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">Ongoing</div>
+          <div class="tl-title">Academic performance</div>
+          <div class="tl-desc">Class topper with a 4.0 GPA across three semesters of the Health Informatics program.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact-cta" class="reveal">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Get in touch</h2></div>
+      <p style="max-width:520px;margin-bottom:24px;">Have a project, opportunity, or just want to say hi?</p>
+      <a class="btn primary" href="contact.html">Go to contact page</a>
     </section>
   </main>
 
