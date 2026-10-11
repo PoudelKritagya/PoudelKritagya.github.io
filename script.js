@@ -1,90 +1,132 @@
-// Ambient background: drifting blobs + cursor glow
 document.addEventListener("DOMContentLoaded", function () {
-  var bg = document.querySelector(".pulse-bg");
-  if (bg) {
-    ["blob-1", "blob-2", "blob-3"].forEach(function (cls) {
-      var b = document.createElement("div");
-      b.className = "blob " + cls;
-      bg.appendChild(b);
-    });
-  }
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hasIO = "IntersectionObserver" in window;
 
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var isTouch = window.matchMedia("(max-width: 720px)").matches;
-  if (!reduceMotion && !isTouch) {
-    var glow = document.createElement("div");
-    glow.className = "cursor-glow";
-    document.body.appendChild(glow);
-    var raf = null;
-    document.addEventListener("mousemove", function (e) {
-      if (raf) return;
-      raf = requestAnimationFrame(function () {
-        glow.style.setProperty("--x", e.clientX + "px");
-        glow.style.setProperty("--y", e.clientY + "px");
-        raf = null;
-      });
-    });
-  }
-});
-
-// Scroll-reveal: fade/slide elements into view
-document.addEventListener("DOMContentLoaded", function () {
+  /* ---------- Scroll reveal ---------- */
   var targets = document.querySelectorAll(".reveal, .reveal-stagger");
-
-  if ("IntersectionObserver" in window) {
-    var observer = new IntersectionObserver(function (entries) {
+  if (hasIO && !reduceMotion) {
+    var revealObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
-
-    targets.forEach(function (el) { observer.observe(el); });
+    }, { threshold: 0.1 });
+    targets.forEach(function (el) { revealObserver.observe(el); });
   } else {
-    // fallback: just show everything
     targets.forEach(function (el) { el.classList.add("is-visible"); });
   }
 
-  // Animated stat counters (numbers with data-count attribute)
+  /* ---------- Animated stat counters ----------
+     The HTML already contains the final numbers, so nothing breaks without JS.
+     Here we reset them to 0 and count up when they scroll into view. */
   var counters = document.querySelectorAll("[data-count]");
-  var countersDone = false;
+  var statRow = document.querySelector(".stat-row");
 
-  function animateCounters() {
-    if (countersDone) return;
-    countersDone = true;
+  function format(el, value) {
+    var isDecimal = el.getAttribute("data-count").indexOf(".") !== -1;
+    return isDecimal ? value.toFixed(1) : String(Math.round(value));
+  }
+
+  function runCounters() {
     counters.forEach(function (el) {
       var target = parseFloat(el.getAttribute("data-count"));
-      var isDecimal = el.getAttribute("data-count").indexOf(".") !== -1;
       var duration = 900;
-      var startTime = null;
-
+      var start = null;
       function step(ts) {
-        if (!startTime) startTime = ts;
-        var progress = Math.min((ts - startTime) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-        var current = target * eased;
-        el.textContent = isDecimal ? current.toFixed(1) : Math.round(current);
-        if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = isDecimal ? target.toFixed(1) : target;
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = format(el, target * eased);
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = format(el, target);
       }
       requestAnimationFrame(step);
     });
   }
 
-  var statRow = document.querySelector(".stat-row");
-  if (statRow && "IntersectionObserver" in window) {
+  if (counters.length && statRow && hasIO && !reduceMotion) {
+    counters.forEach(function (el) { el.textContent = format(el, 0); });
     var statObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          animateCounters();
-          statObserver.unobserve(entry.target);
+          runCounters();
+          statObserver.disconnect();
         }
       });
     }, { threshold: 0.4 });
     statObserver.observe(statRow);
-  } else {
-    animateCounters();
+  }
+
+  /* ---------- Nav highlight while scrolling (home page only) ---------- */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('nav.topnav .links a[href^="#"]'));
+  if (navLinks.length) {
+    var sections = navLinks.map(function (a) {
+      return { link: a, el: document.querySelector(a.getAttribute("href")) };
+    }).filter(function (s) { return s.el; });
+
+    var ticking = false;
+    function updateActive() {
+      var y = window.scrollY + 140;
+      var current = sections[0];
+      sections.forEach(function (s) {
+        if (s.el.offsetTop <= y) current = s;
+      });
+      navLinks.forEach(function (a) { a.classList.remove("active"); });
+      if (current) current.link.classList.add("active");
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateActive); }
+    }, { passive: true });
+    updateActive();
+  }
+
+  /* ---------- Back to top button ---------- */
+  var toTop = document.createElement("button");
+  toTop.className = "back-to-top";
+  toTop.type = "button";
+  toTop.setAttribute("aria-label", "Back to top");
+  toTop.innerHTML = "&uarr;";
+  document.body.appendChild(toTop);
+  toTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+  window.addEventListener("scroll", function () {
+    toTop.classList.toggle("show", window.scrollY > 600);
+  }, { passive: true });
+
+  /* ---------- Contact form: send without leaving the page ---------- */
+  var form = document.querySelector("form.contact-form");
+  if (form && window.fetch && window.FormData) {
+    var status = form.querySelector(".form-status");
+    var button = form.querySelector('button[type="submit"]');
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      status.className = "form-status";
+      status.textContent = "Sending...";
+      button.disabled = true;
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "Accept": "application/json" }
+      }).then(function (res) {
+        if (res.ok) {
+          status.className = "form-status ok";
+          status.textContent = "Thanks! Your message was sent. I'll get back to you soon.";
+          form.reset();
+        } else {
+          throw new Error("Request failed");
+        }
+      }).catch(function () {
+        status.className = "form-status err";
+        status.textContent = "Sorry, that didn't go through. Please email me directly at kritagya1324@student.ku.edu.np.";
+      }).then(function () {
+        button.disabled = false;
+      });
+    });
   }
 });
